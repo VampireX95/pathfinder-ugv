@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinder UGV Control</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #4CAF50;
+        }
+
+        #video-container {
+            margin-bottom: 20px;
+        }
+
+        #video-feed {
+            width: 80%;
+            max-width: 640px;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-buttons {
+            margin-top: 30px;
+        }
+
+        .control-buttons button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .control-buttons button:hover {
+            background-color: #45a049;
+        }
+
+        .control-buttons button:active {
+            background-color: #3e8e41;
+        }
+
+        .section {
+            margin-top: 40px;
+        }
+
+        .section h3 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pathfinder UGV Control</h1>
+
+    <div id="video-container">
+        <img src="/video" alt="Video Feed" id="video-feed">
+    </div>
+
+    <div class="control-buttons">
+        <div class="section">
+            <h3>Steering</h3>
+            <button onclick="controlSteering(-90)">Left</button>
+            <button onclick="controlSteering(0)">Center</button>
+            <button onclick="controlSteering(90)">Right</button>
+        </div>
+
+        <div class="section">
+            <h3>Throttle</h3>
+            <button onclick="controlThrottle(0)">Stop</button>
+            <button onclick="controlThrottle(50)">Half Speed</button>
+            <button onclick="controlThrottle(100)">Full Speed</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Pathfinder UGV Control Interface | Powered by Flask</p>
+    </footer>
+
+    <script>
+        function controlSteering(angle) {
+            fetch('/control/steering', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ angle: angle })
+            });
+        }
+
+        function controlThrottle(value) {
+            fetch('/control/throttle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ throttle: value })
+            });
+        }
+    </script>
+</body>
+</html>
