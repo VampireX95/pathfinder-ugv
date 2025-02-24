@@ -1,7 +1,7 @@
 from flask import Flask
-from video_stream import video_feed
-from steering_control import control_steering
-from throttle_control import control_throttle
+from controls.video_stream import video_feed
+from controls.steering_control import control_steering
+from controls.throttle_control import control_throttle
 
 app = Flask(__name__)
 
