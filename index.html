@@ -74,7 +74,7 @@
     <h1>Pathfinder UGV Control</h1>
 
     <div id="video-container">
-        <img src="/video" alt="Video Feed" id="video-feed">
+        <img src="{{ rpi_api_url }}/video" alt="Video Feed" id="video-feed">
     </div>
 
     <div class="control-buttons">
@@ -98,8 +98,10 @@
     </footer>
 
     <script>
+        const RPI_API_URL = "{{ rpi_api_url }}";  // Fetch API URL from Flask's context
+
         function controlSteering(angle) {
-            fetch('/control/steering', {
+            fetch(`${RPI_API_URL}/control/steering`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -109,7 +111,7 @@
         }
 
         function controlThrottle(value) {
-            fetch('/control/throttle', {
+            fetch(`${RPI_API_URL}/control/throttle`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
